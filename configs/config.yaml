@@ -1,0 +1,63 @@
+﻿# Central Configuration for Nepali Voice Translator Data Pipeline
+
+project:
+  name: "Nepali Voice Translator"
+  seed: 42
+
+reproducibility:
+  seed: 42
+  deterministic: true
+
+asr:
+  raw_data_dir: "data/raw/asr"
+  processed_data_dir: "data/processed/asr"
+  metadata_dir: "data/metadata"
+  dev_mode: true
+  dev_sample_limit: 120
+  target_sample_rate: 16000
+  audio_format: "wav"
+  min_duration_sec: 0.5
+  max_duration_sec: 15.0
+  features:
+    n_mels: 80
+    n_fft: 400
+    hop_length: 160
+    win_length: 400
+    f_min: 0.0
+    f_max: 8000.0
+    apply_spec_augment: false
+  splits:
+    train_ratio: 0.80
+    val_ratio: 0.10
+    test_ratio: 0.10
+  dataloader:
+    batch_size: 8
+    num_workers: 0
+    shuffle: true
+    pin_memory: false
+
+translation:
+  raw_data_dir: "data/raw/translation"
+  processed_data_dir: "data/processed/translation"
+  metadata_dir: "data/metadata"
+  dev_mode: true
+  dev_sample_limit: 1000
+  cleaning:
+    min_src_tokens: 1
+    max_src_tokens: 50
+    min_tgt_tokens: 1
+    max_tgt_tokens: 50
+    max_len_ratio: 2.5
+  vocab:
+    min_freq: 1
+    max_src_vocab_size: 5000
+    max_tgt_vocab_size: 5000
+  splits:
+    train_ratio: 0.80
+    val_ratio: 0.10
+    test_ratio: 0.10
+  dataloader:
+    batch_size: 16
+    num_workers: 0
+    shuffle: true
+    pin_memory: false
