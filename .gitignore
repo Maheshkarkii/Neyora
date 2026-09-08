@@ -1,0 +1,34 @@
+﻿# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments & IDE
+.venv/
+env/
+venv/
+.env
+.vscode/
+.idea/
+
+# Pytest / Cache
+.pytest_cache/
+
+# Data artifacts
+data/raw/asr/audio/*.wav
+data/raw/asr/audio/
+*.wav
+*.mp3
+
+# Checkpoints & model weights
+checkpoints/
+*.pt
+*.pth
+*.onnx
+
+# Build and logs
+build/
+dist/
+*.egg-info/
+*.log

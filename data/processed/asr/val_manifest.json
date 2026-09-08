@@ -1,0 +1,152 @@
+[
+  {
+    "id": "utt_0009",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_009.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "धन्यवाद तपाईंको सहयोगको लागि।",
+    "raw_text": "धन्यवाद तपाईंको सहयोगको लागि।"
+  },
+  {
+    "id": "utt_0010",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_010.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.5,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "यो परियोजना धेरै महत्त्वपूर्ण छ।",
+    "raw_text": "यो परियोजना धेरै महत्त्वपूर्ण छ।"
+  },
+  {
+    "id": "utt_0011",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_011.wav",
+    "speaker_id": "spk_04",
+    "duration": 3.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "समयको सहि सदुपयोग गर्नुपर्छ।",
+    "raw_text": "समयको सहि सदुपयोग गर्नुपर्छ।"
+  },
+  {
+    "id": "utt_0029",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_029.wav",
+    "speaker_id": "spk_04",
+    "duration": 4.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "धन्यवाद तपाईंको सहयोगको लागि।",
+    "raw_text": "धन्यवाद तपाईंको सहयोगको लागि।"
+  },
+  {
+    "id": "utt_0030",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_030.wav",
+    "speaker_id": "spk_04",
+    "duration": 4.5,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "यो परियोजना धेरै महत्त्वपूर्ण छ।",
+    "raw_text": "यो परियोजना धेरै महत्त्वपूर्ण छ।"
+  },
+  {
+    "id": "utt_0031",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_031.wav",
+    "speaker_id": "spk_04",
+    "duration": 5.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "समयको सहि सदुपयोग गर्नुपर्छ।",
+    "raw_text": "समयको सहि सदुपयोग गर्नुपर्छ।"
+  },
+  {
+    "id": "utt_0049",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_049.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "धन्यवाद तपाईंको सहयोगको लागि।",
+    "raw_text": "धन्यवाद तपाईंको सहयोगको लागि।"
+  },
+  {
+    "id": "utt_0050",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_050.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.5,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "यो परियोजना धेरै महत्त्वपूर्ण छ।",
+    "raw_text": "यो परियोजना धेरै महत्त्वपूर्ण छ।"
+  },
+  {
+    "id": "utt_0051",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_051.wav",
+    "speaker_id": "spk_04",
+    "duration": 3.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "समयको सहि सदुपयोग गर्नुपर्छ।",
+    "raw_text": "समयको सहि सदुपयोग गर्नुपर्छ।"
+  },
+  {
+    "id": "utt_0069",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_069.wav",
+    "speaker_id": "spk_04",
+    "duration": 4.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "धन्यवाद तपाईंको सहयोगको लागि।",
+    "raw_text": "धन्यवाद तपाईंको सहयोगको लागि।"
+  },
+  {
+    "id": "utt_0070",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_070.wav",
+    "speaker_id": "spk_04",
+    "duration": 4.5,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "यो परियोजना धेरै महत्त्वपूर्ण छ।",
+    "raw_text": "यो परियोजना धेरै महत्त्वपूर्ण छ।"
+  },
+  {
+    "id": "utt_0071",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_071.wav",
+    "speaker_id": "spk_04",
+    "duration": 5.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "समयको सहि सदुपयोग गर्नुपर्छ।",
+    "raw_text": "समयको सहि सदुपयोग गर्नुपर्छ।"
+  },
+  {
+    "id": "utt_0089",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_089.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "धन्यवाद तपाईंको सहयोगको लागि।",
+    "raw_text": "धन्यवाद तपाईंको सहयोगको लागि।"
+  },
+  {
+    "id": "utt_0090",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_090.wav",
+    "speaker_id": "spk_04",
+    "duration": 2.5,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "यो परियोजना धेरै महत्त्वपूर्ण छ।",
+    "raw_text": "यो परियोजना धेरै महत्त्वपूर्ण छ।"
+  },
+  {
+    "id": "utt_0091",
+    "audio_filepath": "C:\\Users\\Mahesh Karki\\Downloads\\Mahesh\\Nep-Eng\\data\\raw\\asr\\audio\\nep_spk_04_091.wav",
+    "speaker_id": "spk_04",
+    "duration": 3.0,
+    "sample_rate": 16000,
+    "channels": 1,
+    "text": "समयको सहि सदुपयोग गर्नुपर्छ।",
+    "raw_text": "समयको सहि सदुपयोग गर्नुपर्छ।"
+  }
+]

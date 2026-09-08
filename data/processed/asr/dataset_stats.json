@@ -1,0 +1,24 @@
+[
+  {
+    "total_samples": 100,
+    "train_samples": 75,
+    "val_samples": 15,
+    "test_samples": 10,
+    "num_speakers": 7,
+    "train_speakers": [
+      "spk_02",
+      "spk_05",
+      "spk_03",
+      "spk_06",
+      "spk_01"
+    ],
+    "val_speakers": [
+      "spk_04"
+    ],
+    "test_speakers": [
+      "spk_07"
+    ],
+    "avg_duration_sec": 3.21,
+    "total_audio_hours": 0.08916666666666667
+  }
+]

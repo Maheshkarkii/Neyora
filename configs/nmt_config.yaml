@@ -1,0 +1,30 @@
+# Nepali-English NMT Pipeline Configuration
+data:
+  raw_dir: 'data/raw/nmt'
+  processed_dir: 'data/processed/nmt'
+  dev_mode: true
+  dev_sample_limit: 1000
+  min_src_len: 1
+  max_src_len: 50
+  min_tgt_len: 1
+  max_tgt_len: 50
+  max_len_ratio: 2.5
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  random_seed: 42
+
+vocab:
+  pad_token: '<pad>'
+  unk_token: '<unk>'
+  sos_token: '<sos>'
+  eos_token: '<eos>'
+  min_freq: 1
+  max_src_vocab_size: 8000
+  max_tgt_vocab_size: 8000
+
+dataloader:
+  batch_size: 16
+  shuffle: true
+  num_workers: 0
+  pin_memory: false
