@@ -1,0 +1,82 @@
+{
+  "project": "Nepali Voice Translator & Transcription System",
+  "registry_version": "2.0.0",
+  "updated_at": "2026-09-09",
+  "models": {
+    "asr": {
+      "cnn_bilstm_ctc_v1": {
+        "model_id": "asr-cnn-bilstm-v1",
+        "model_type": "CNN-BiLSTM-CTC",
+        "checkpoint": "checkpoints/best_nepali_asr.pt",
+        "vocabulary": "data/processed/asr/vocab.json",
+        "sample_rate": 16000,
+        "n_mels": 80,
+        "parameters": 4771442,
+        "disk_size_mb": 54.64,
+        "status": "production_ready"
+      }
+    },
+    "translation": {
+      "lstm_attention_v1": {
+        "model_id": "nmt-lstm-attention-v1",
+        "model_type": "Seq2Seq-Bahdanau-Attention",
+        "checkpoint": "checkpoints/best_lstm_attention.pt",
+        "tokenizer_type": "word",
+        "src_vocab": "data/processed/nmt/src_vocab.json",
+        "tgt_vocab": "data/processed/nmt/tgt_vocab.json",
+        "parameters": 2326756,
+        "disk_size_mb": 26.66,
+        "status": "baseline_active"
+      },
+      "transformer_word_v1": {
+        "model_id": "nmt-transformer-word-v1",
+        "model_type": "Transformer-Word-Scratch",
+        "checkpoint": "checkpoints/best_transformer.pt",
+        "tokenizer_type": "word",
+        "src_vocab": "data/processed/nmt/src_vocab.json",
+        "tgt_vocab": "data/processed/nmt/tgt_vocab.json",
+        "parameters": 1056384,
+        "disk_size_mb": 4.10,
+        "status": "active"
+      },
+      "transformer_subword_v2": {
+        "model_id": "nmt-transformer-subword-v2",
+        "model_type": "Transformer-Subword-BPE",
+        "checkpoint": "checkpoints/best_transformer_subword.pt",
+        "tokenizer_type": "subword_bpe",
+        "src_vocab": "data/processed/nmt/subword_nepali.json",
+        "tgt_vocab": "data/processed/nmt/subword_english.json",
+        "parameters": 1065088,
+        "disk_size_mb": 4.14,
+        "status": "recommended_default"
+      }
+    }
+  },
+  "tokenizers": {
+    "word_v1": {
+      "type": "word_level",
+      "src_vocab_size": 100,
+      "tgt_vocab_size": 100,
+      "unk_rate_test_percent": 70.59
+    },
+    "subword_bpe_v2": {
+      "type": "byte_pair_encoding",
+      "src_vocab_size": 148,
+      "tgt_vocab_size": 134,
+      "unk_rate_test_percent": 2.46,
+      "leakage_prevention": "strictly_trained_on_train_split"
+    }
+  },
+  "datasets": {
+    "asr_slr54_v1": {
+      "train_split": "data/metadata/asr_train.csv",
+      "val_split": "data/metadata/asr_val.csv",
+      "test_split": "data/metadata/asr_test.csv"
+    },
+    "nmt_parallel_v1": {
+      "train_split": "data/metadata/translation_train.csv",
+      "val_split": "data/metadata/translation_val.csv",
+      "test_split": "data/metadata/translation_test.csv"
+    }
+  }
+}

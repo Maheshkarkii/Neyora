@@ -7,7 +7,7 @@ from src.data.vocabulary import TranslationVocabulary
 from src.data.tokenizer import TranslationTokenizer
 from src.training.train_attention import build_seq2seq_attention_model
 from src.utils.checkpoint import load_checkpoint
-from src.inference.translate_attention import translate_with_attention
+from src.inference.translate_attention import translate_with_attention, translate_with_beam_search
 from src.utils.logger import get_logger
 
 logger = get_logger("translation_inference")
@@ -15,7 +15,7 @@ logger = get_logger("translation_inference")
 class TranslationInferenceEngine:
     """
     Inference engine for Nepali-to-English Neural Machine Translation (NMT)
-    with Bahdanau Additive Attention.
+    with Bahdanau Additive Attention supporting Greedy and Beam Search decoding.
     """
     def __init__(
         self,
@@ -23,17 +23,20 @@ class TranslationInferenceEngine:
         src_vocab_path: str = "data/processed/nmt/src_vocab.json",
         tgt_vocab_path: str = "data/processed/nmt/tgt_vocab.json",
         device: Optional[torch.device] = None,
-        max_output_length: int = 30
+        max_output_length: int = 30,
+        decoder_type: str = "greedy",
+        beam_width: int = 5
     ):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.max_output_length = max_output_length
+        self.decoder_type = decoder_type
+        self.beam_width = beam_width
 
         if not os.path.exists(checkpoint_path):
             raise FileNotFoundError(f"Translation checkpoint not found at {checkpoint_path}")
 
         checkpoint = load_checkpoint(checkpoint_path, map_location=self.device)
         
-        # Load vocabularies from checkpoint if available, otherwise from json files
         if "src_vocab" in checkpoint and "tgt_vocab" in checkpoint:
             self.src_vocab = TranslationVocabulary(checkpoint["src_vocab"])
             self.tgt_vocab = TranslationVocabulary(checkpoint["tgt_vocab"])
@@ -44,12 +47,11 @@ class TranslationInferenceEngine:
         self.src_tokenizer = TranslationTokenizer(self.src_vocab, is_nepali=True)
         self.tgt_tokenizer = TranslationTokenizer(self.tgt_vocab, is_nepali=False)
 
-        # Model configuration
         model_config = checkpoint.get("config", {}).get("model", {})
         emb_dim = model_config.get("embedding_dim", 128)
         hid_dim = model_config.get("hidden_dim", 256)
         num_layers = model_config.get("num_layers", 2)
-        dropout = 0.0 # Inference dropout
+        dropout = 0.0
 
         self.model = build_seq2seq_attention_model(
             src_vocab_size=len(self.src_vocab),
@@ -63,13 +65,15 @@ class TranslationInferenceEngine:
         )
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.model.eval()
-        logger.info(f"Translation model successfully loaded from {checkpoint_path} on device: {self.device}")
+        logger.info(f"Translation model successfully loaded from {checkpoint_path} on device: {self.device} (Decoder: {self.decoder_type})")
 
-    @torch.no_grad()
+    @torch.inference_mode()
     def translate(
         self,
         nepali_text: str,
-        max_len: Optional[int] = None
+        max_len: Optional[int] = None,
+        decoder_type: Optional[str] = None,
+        beam_width: Optional[int] = None
     ) -> Dict[str, Any]:
         """
         Translates a Nepali text string into English.
@@ -78,6 +82,8 @@ class TranslationInferenceEngine:
         """
         start_time = time.perf_counter()
         gen_max_len = max_len or self.max_output_length
+        active_decoder = decoder_type or self.decoder_type
+        active_beam_width = beam_width or self.beam_width
 
         if not nepali_text or not nepali_text.strip():
             return {
@@ -88,14 +94,25 @@ class TranslationInferenceEngine:
                 "latency_sec": time.perf_counter() - start_time
             }
 
-        translation, attn_matrix, src_token_strs, tgt_token_strs = translate_with_attention(
-            model=self.model,
-            sentence=nepali_text,
-            src_tokenizer=self.src_tokenizer,
-            tgt_tokenizer=self.tgt_tokenizer,
-            max_len=gen_max_len,
-            device=self.device
-        )
+        if active_decoder == "beam_search":
+            translation, attn_matrix, src_token_strs, tgt_token_strs = translate_with_beam_search(
+                model=self.model,
+                sentence=nepali_text,
+                src_tokenizer=self.src_tokenizer,
+                tgt_tokenizer=self.tgt_tokenizer,
+                beam_width=active_beam_width,
+                max_len=gen_max_len,
+                device=self.device
+            )
+        else:
+            translation, attn_matrix, src_token_strs, tgt_token_strs = translate_with_attention(
+                model=self.model,
+                sentence=nepali_text,
+                src_tokenizer=self.src_tokenizer,
+                tgt_tokenizer=self.tgt_tokenizer,
+                max_len=gen_max_len,
+                device=self.device
+            )
 
         latency_sec = time.perf_counter() - start_time
 
@@ -104,5 +121,6 @@ class TranslationInferenceEngine:
             "attention_matrix": attn_matrix,
             "src_tokens": src_token_strs,
             "tgt_tokens": tgt_token_strs,
-            "latency_sec": latency_sec
+            "latency_sec": latency_sec,
+            "decoder_type": active_decoder
         }

@@ -1,0 +1,35 @@
+[
+  {
+    "Configuration": "Greedy (Baseline)",
+    "ASR Decoder": "greedy",
+    "NMT Decoder": "greedy",
+    "Beam Width": 1,
+    "Mean CER": 0.9525,
+    "Mean WER": 1.0,
+    "Mean BLEU (%)": 0.0,
+    "Mean Latency (s)": 0.0407,
+    "P95 Latency (s)": 0.0558
+  },
+  {
+    "Configuration": "Beam Search (k=3)",
+    "ASR Decoder": "beam_search",
+    "NMT Decoder": "beam_search",
+    "Beam Width": 3,
+    "Mean CER": 0.9359,
+    "Mean WER": 1.0,
+    "Mean BLEU (%)": 0.0,
+    "Mean Latency (s)": 0.0707,
+    "P95 Latency (s)": 0.095
+  },
+  {
+    "Configuration": "Beam Search (k=5)",
+    "ASR Decoder": "beam_search",
+    "NMT Decoder": "beam_search",
+    "Beam Width": 5,
+    "Mean CER": 0.9525,
+    "Mean WER": 1.0,
+    "Mean BLEU (%)": 0.16,
+    "Mean Latency (s)": 0.0678,
+    "P95 Latency (s)": 0.0859
+  }
+]

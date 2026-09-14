@@ -1,0 +1,48 @@
+{
+  "parameters": {
+    "asr_model": {
+      "total_params": 4771442,
+      "trainable_params": 4771442,
+      "non_trainable_params": 0,
+      "checkpoint_path": "checkpoints/best_nepali_asr.pt",
+      "disk_size_mb": 54.64
+    },
+    "translation_model": {
+      "total_params": 2326756,
+      "trainable_params": 2326756,
+      "non_trainable_params": 0,
+      "checkpoint_path": "checkpoints/best_lstm_attention.pt",
+      "disk_size_mb": 26.66
+    },
+    "combined_system": {
+      "total_params": 7098198,
+      "trainable_params": 7098198,
+      "total_disk_size_mb": 81.3
+    }
+  },
+  "latency_profile": {
+    "num_samples_evaluated": 10,
+    "total_executions": 50,
+    "total_latency_sec": {
+      "mean": 0.0419,
+      "median": 0.0384,
+      "std": 0.0122,
+      "min": 0.0212,
+      "max": 0.0869,
+      "p95": 0.0607
+    },
+    "asr_latency_sec": {
+      "mean": 0.0286,
+      "median": 0.0268
+    },
+    "translation_latency_sec": {
+      "mean": 0.0126,
+      "median": 0.0112
+    },
+    "real_time_factor": {
+      "mean": 0.0122,
+      "median": 0.0115,
+      "is_realtime": true
+    }
+  }
+}

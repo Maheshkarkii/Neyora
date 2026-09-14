@@ -1,0 +1,26 @@
+[
+  {
+    "Tokenizer Scheme":"Character-Level",
+    "Avg Source Len":23.29,
+    "Max Source Len":35,
+    "Avg Target Len":25.14,
+    "Max Target Len":43,
+    "UNK Rate (%)":"0.0%"
+  },
+  {
+    "Tokenizer Scheme":"Word-Level (Phase 2-7)",
+    "Avg Source Len":4.86,
+    "Max Source Len":6,
+    "Avg Target Len":6.29,
+    "Max Target Len":10,
+    "UNK Rate (%)":"70.59%"
+  },
+  {
+    "Tokenizer Scheme":"Subword BPE (Phase 8)",
+    "Avg Source Len":17.43,
+    "Max Source Len":29,
+    "Avg Target Len":17.29,
+    "Max Target Len":27,
+    "UNK Rate (%)":"2.46%"
+  }
+]

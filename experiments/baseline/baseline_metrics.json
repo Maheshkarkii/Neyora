@@ -1,0 +1,24 @@
+{
+  "experiment_name": "frozen_baseline",
+  "phase": "phase_5_baseline",
+  "recorded_date": "2026-09-09",
+  "asr": {
+    "cer": 0.9525,
+    "wer": 1.0000,
+    "validation_loss": 2.45,
+    "decoding": "greedy"
+  },
+  "translation": {
+    "mode1_ground_truth_bleu": 0.00,
+    "validation_loss": 3.12,
+    "decoding": "greedy"
+  },
+  "end_to_end": {
+    "cer": 0.9525,
+    "wer": 1.0000,
+    "e2e_bleu": 0.00,
+    "mean_total_latency_sec": 0.0510,
+    "mean_real_time_factor": 0.0160
+  },
+  "status": "frozen_do_not_modify"
+}

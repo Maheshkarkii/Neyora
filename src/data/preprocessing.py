@@ -1,7 +1,7 @@
-﻿import os
+import os
 import re
 import unicodedata
-from typing import Tuple, Optional, Dict, Any
+from typing import Tuple, Optional, Dict, Any, List
 import torch
 import torchaudio
 import torchaudio.transforms as T
@@ -10,7 +10,7 @@ import numpy as np
 
 class AudioPreprocessor:
     """
-    Audio feature extraction pipeline:
+    Audio feature extraction and augmentation pipeline:
     Audio -> Load waveform -> Resample -> Normalize -> Mel-Spectrogram -> Model-ready tensor.
     
     Tensor shape convention:
@@ -25,7 +25,8 @@ class AudioPreprocessor:
         win_length: int = 400,
         f_min: float = 0.0,
         f_max: float = 8000.0,
-        apply_spec_augment: bool = False
+        apply_spec_augment: bool = False,
+        silence_threshold_rms: float = 0.005
     ):
         self.target_sample_rate = target_sample_rate
         self.n_mels = n_mels
@@ -33,6 +34,7 @@ class AudioPreprocessor:
         self.hop_length = hop_length
         self.win_length = win_length
         self.apply_spec_augment = apply_spec_augment
+        self.silence_threshold_rms = silence_threshold_rms
 
         self.mel_transform = T.MelSpectrogram(
             sample_rate=target_sample_rate,
@@ -83,6 +85,16 @@ class AudioPreprocessor:
 
         return waveform, self.target_sample_rate
 
+    def is_silence(self, waveform: torch.Tensor, threshold: Optional[float] = None) -> bool:
+        """
+        Checks whether the given waveform is silence using Root-Mean-Square (RMS) energy.
+        """
+        thresh = threshold or self.silence_threshold_rms
+        if waveform.numel() == 0:
+            return True
+        rms = torch.sqrt(torch.mean(waveform ** 2)).item()
+        return bool(rms < thresh)
+
     def extract_mel_spectrogram(self, waveform: torch.Tensor, augment: bool = False) -> torch.Tensor:
         """
         Extracts Log-Mel Spectrogram features.
@@ -100,6 +112,49 @@ class AudioPreprocessor:
             log_mel = self.time_mask(log_mel)
 
         return log_mel
+
+    def augment_waveform(
+        self,
+        waveform: torch.Tensor,
+        noise_level: float = 0.005,
+        gain_db: float = 0.0
+    ) -> torch.Tensor:
+        """Applies waveform-level augmentations: additive Gaussian noise and gain scaling."""
+        aug_wave = waveform.clone()
+        if gain_db != 0.0:
+            scale = 10.0 ** (gain_db / 20.0)
+            aug_wave = aug_wave * scale
+        if noise_level > 0:
+            noise = torch.randn_like(aug_wave) * noise_level
+            aug_wave = aug_wave + noise
+        max_val = torch.max(torch.abs(aug_wave))
+        if max_val > 1.0:
+            aug_wave = aug_wave / max_val
+        return aug_wave
+
+    def chunk_audio(
+        self,
+        waveform: torch.Tensor,
+        chunk_duration_sec: float = 10.0,
+        overlap_sec: float = 1.0
+    ) -> List[torch.Tensor]:
+        """
+        Splits long waveform into overlapping segments for robust long-audio processing.
+        """
+        chunk_samples = int(chunk_duration_sec * self.target_sample_rate)
+        step_samples = int((chunk_duration_sec - overlap_sec) * self.target_sample_rate)
+        total_samples = waveform.shape[-1]
+
+        if total_samples <= chunk_samples:
+            return [waveform]
+
+        chunks = []
+        for start in range(0, total_samples, step_samples):
+            end = min(start + chunk_samples, total_samples)
+            chunks.append(waveform[:, start:end])
+            if end == total_samples:
+                break
+        return chunks
 
 
 class NepaliTextCleaner:

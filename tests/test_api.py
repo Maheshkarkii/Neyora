@@ -29,6 +29,16 @@ def test_api_health(client):
     assert data["asr_model_loaded"] is True
     assert data["translation_model_loaded"] is True
 
+def test_api_model_info(client):
+    response = client.get("/model-info")
+    assert response.status_code == 200
+    data = response.json()
+    assert "asr_model" in data
+    assert "translation_model" in data
+    assert "combined_system" in data
+    assert data["asr_model"]["total_parameters"] > 0
+    assert data["translation_model"]["total_parameters"] > 0
+
 def test_api_serve_ui(client):
     response = client.get("/")
     assert response.status_code == 200
@@ -39,12 +49,21 @@ def test_api_translate_valid_wav(client, wav_bytes):
     response = client.post("/translate", files=files)
     assert response.status_code == 200
     data = response.json()
+    assert "request_id" in data
     assert "transcription" in data
     assert "translation" in data
     assert "audio_duration_sec" in data
     assert "latency_sec" in data
     assert "real_time_factor" in data
     assert data["audio_duration_sec"] > 0.8
+
+def test_api_translate_with_beam_search(client, wav_bytes):
+    files = {"file": ("test_sample.wav", wav_bytes, "audio/wav")}
+    response = client.post("/translate?asr_decoder=beam_search&translation_decoder=beam_search", files=files)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["asr_decoder_used"] == "beam_search"
+    assert data["translation_decoder_used"] == "beam_search"
 
 def test_api_translate_empty_file(client):
     files = {"file": ("empty.wav", b"", "audio/wav")}

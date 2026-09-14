@@ -1,0 +1,36 @@
+# Frozen Baseline Configuration (Phase 5 / Baseline Phase 6)
+experiment_name: "baseline_cascaded_system"
+timestamp: "2026-09-09"
+description: "Frozen baseline combining CNN-BiLSTM-CTC ASR and Seq2Seq Attention NMT with Greedy Decoding"
+
+asr:
+  model_type: "CNN-BiLSTM-CTC"
+  sample_rate: 16000
+  n_mels: 80
+  n_fft: 400
+  hop_length: 160
+  win_length: 400
+  cnn_channels: 64
+  rnn_hidden_size: 256
+  rnn_layers: 2
+  rnn_dropout: 0.0
+  bidirectional: true
+  decoding: "greedy"
+  checkpoint: "checkpoints/best_nepali_asr.pt"
+
+translation:
+  model_type: "Seq2Seq-Bahdanau-Attention"
+  embedding_dim: 128
+  hidden_dim: 256
+  num_layers: 2
+  dropout: 0.0
+  decoding: "greedy"
+  checkpoint: "checkpoints/best_lstm_attention.pt"
+
+evaluation_metrics:
+  asr_avg_cer: 0.9525
+  asr_avg_wer: 1.0000
+  nmt_mode1_bleu: 0.00
+  e2e_mode3_bleu: 0.00
+  avg_latency_sec: 0.0510
+  avg_rtf: 0.0160

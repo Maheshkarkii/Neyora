@@ -1,0 +1,17 @@
+.git
+.gitignore
+.pytest_cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+venv
+.venv
+data/raw/
+data/processed/
+experiments/runs/
+results/
+reports/
+checkpoints/
+.github/

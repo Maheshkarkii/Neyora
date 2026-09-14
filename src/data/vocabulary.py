@@ -1,4 +1,4 @@
-﻿import json
+import json
 import os
 from collections import Counter
 from typing import List, Dict, Optional, Set
@@ -109,19 +109,19 @@ class TranslationVocabulary:
 
     @property
     def pad_idx(self) -> int:
-        return self.token2idx[self.PAD]
+        return self.token2idx.get(self.PAD, self.token2idx.get("<pad>", 0))
 
     @property
     def unk_idx(self) -> int:
-        return self.token2idx[self.UNK]
+        return self.token2idx.get(self.UNK, self.token2idx.get("<unk>", 1))
 
     @property
     def sos_idx(self) -> int:
-        return self.token2idx[self.SOS]
+        return self.token2idx.get(self.SOS, self.token2idx.get("<sos>", 2))
 
     @property
     def eos_idx(self) -> int:
-        return self.token2idx[self.EOS]
+        return self.token2idx.get(self.EOS, self.token2idx.get("<eos>", 3))
 
     def __len__(self) -> int:
         return len(self.token2idx)
