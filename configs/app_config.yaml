@@ -1,9 +1,0 @@
-# Application and Pipeline Global Configuration
-app:
-  name: 'Nepali Voice Translator'
-  version: '1.0.0'
-  seed: 42
-
-logging:
-  level: 'INFO'
-  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
